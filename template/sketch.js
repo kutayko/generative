@@ -1,17 +1,16 @@
-const s = (p) => {
+let sketch = new p5((p) => {
 
-    let x = 100;
-    let y = 100;
+    let x = 0;
+    let y = 0;
 
     p.setup = function () {
-        p.createCanvas(700, 600);
+        p.createCanvas(600, 600);
+        p.background(255);
+        p.stroke(0);
     };
 
     p.draw = function () {
-        p.background(0);
-        p.fill(255);
-        p.rect(x, y, 50, 50);
-    };
-};
 
-let myp5 = new p5(s, 'p5Container');
+    };
+
+}, 'p5Container');
