@@ -6,14 +6,16 @@ let sketch = new p5((p) => {
         p.noFill();
         p.stroke(0);
         p.strokeWeight(4);
+
         p.angleMode(p.DEGREES);
+        p.rectMode(p.CENTER);
 
         let edgeSize = p.width / 10;
 
-        let y = 0;
-        while (y + edgeSize <= p.height) {
-            let x = 0;
-            while (x + edgeSize <= p.width) {
+        let y = edgeSize / 2;
+        while (y <= p.height) {
+            let x = edgeSize / 2;
+            while (x <= p.width) {
                 p.push();
                 p.translate(x, y);
                 p.rotate(getRotation(y));
@@ -32,7 +34,7 @@ let sketch = new p5((p) => {
     };
 
     getRotation = (y) => {
-         return p.random(-1, 1) * p.map(y, 0, p.height, 0, 20);
+         return p.random(-1, 1) * p.map(y, 0, p.height, 0, 30);
     };
 
 }, 'p5Container');
