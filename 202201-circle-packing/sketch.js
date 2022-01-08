@@ -2,13 +2,14 @@ let sketch = new p5((p) => {
 
     p.setup = function () {
         p.createCanvas(600, 600);
-        p.background(0);
+        p.background(255);
         p.stroke(0);
+        p.strokeWeight(2);
 
         maxCircles = 1000000;
 
         let minDiameter = 5;
-        let maxDiameter = 200;
+        let maxDiameter = 300;
         let circles = [];
 
         let i = 0;
