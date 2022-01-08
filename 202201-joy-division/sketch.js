@@ -19,7 +19,7 @@ let sketch = new p5((p) => {
     };
 
     p.draw = function () {
-        p.background(255);
+        p.background(0);
         rows.map(row => row.draw());
     };
 
@@ -42,7 +42,8 @@ class Row {
     }
 
     draw() {
-        this.p.stroke(0);
+        this.p.stroke(255);
+        this.p.fill(0);
         this.p.beginShape();
         this.points.map(point => this.p.curveVertex(point.x, point.y));
         this.p.endShape();
