@@ -14,19 +14,22 @@ let sketch = new p5((p) => {
         p.background(...bgColor);
         p.stroke(...fgColor);
         p.fill(...bgColor);
+        p.noLoop();
     };
 
     p.draw = function () {
-        if (p.random() < 0.5) {
-            p.line(x, y, x + a, y + a);
-        } else {
-            p.line(x, y + a, x + a, y);
-        }
-        
-        x = x + a;
-        if (x > p.width) {
-            x = 0;
-            y = y + a;
+        while(y < p.height) {
+            if (p.random() < 0.5) {
+                p.line(x, y, x + a, y + a);
+            } else {
+                p.line(x, y + a, x + a, y);
+            }
+            
+            x = x + a;
+            if (x > p.width) {
+                x = 0;
+                y = y + a;
+            }
         }
     };
 

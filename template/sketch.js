@@ -6,11 +6,13 @@ let sketch = new p5((p) => {
 
     p.setup = function () {
         p.createCanvas(600, 600);
+
         p.colorMode(p.HSL);
         p.background(...bgColor);
         p.stroke(...fgColor);
         p.fill(...bgColor);
 
+        p.noLoop();
     };
 
     p.draw = function () {

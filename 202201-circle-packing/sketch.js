@@ -4,21 +4,26 @@ let sketch = new p5((p) => {
     let bgColor = [40, 50, 97];
     let fgColor = [210, 29, 22];
 
+
+    let maxCircles = 1000000;
+    let minDiameter = 5;
+    let maxDiameter = 300;
+    let circles = [];
+
     p.setup = function () {
         p.createCanvas(600, 600);
+
         p.colorMode(p.HSL);
+
         p.background(...bgColor);
         p.stroke(...fgColor);
-
         p.strokeWeight(2);
         p.noFill();
 
-        maxCircles = 1000000;
+        p.noLoop();
+    };
 
-        let minDiameter = 5;
-        let maxDiameter = 300;
-        let circles = [];
-
+    p.draw = function () {
         let i = 0;
         while (i < maxCircles) {
             let d = p.random(minDiameter, maxDiameter);
@@ -36,10 +41,6 @@ let sketch = new p5((p) => {
 
             i++;
         }
-    };
-
-    p.draw = function () {
-
     };
 
 }, 'p5Container');

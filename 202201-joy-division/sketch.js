@@ -12,6 +12,7 @@ let sketch = new p5((p) => {
         p.background(...bgColor);
         p.stroke(...fgColor);
         p.fill(...bgColor);
+        p.noLoop();
 
         let marginTop = 100;
         let marginBottom = 50;
@@ -27,6 +28,7 @@ let sketch = new p5((p) => {
     };
 
     p.draw = function () {
+        p.print("A");
         rows.map(row => row.draw());
     };
 
