@@ -1,13 +1,19 @@
 let sketch = new p5((p) => {
 
+    // Colors
+    let bgColor = [40, 50, 97];
+    let fgColor = [210, 29, 22];
+
     let x = 0;
     let y = 0;
     let a = 15;
 
     p.setup = function () {
         p.createCanvas(600, 600);
-        p.background(255);
-        p.stroke(0);
+        p.colorMode(p.HSL);
+        p.background(...bgColor);
+        p.stroke(...fgColor);
+        p.fill(...bgColor);
     };
 
     p.draw = function () {

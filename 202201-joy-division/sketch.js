@@ -1,9 +1,17 @@
 let sketch = new p5((p) => {
 
+    // Colors
+    let bgColor = [210, 29, 22];
+    let fgColor = [40, 50, 97];
+
     let rows = [];
 
     p.setup = function () {
         p.createCanvas(400, 600);
+        p.colorMode(p.HSL);
+        p.background(...bgColor);
+        p.stroke(...fgColor);
+        p.fill(...bgColor);
 
         let marginTop = 100;
         let marginBottom = 50;
@@ -19,7 +27,6 @@ let sketch = new p5((p) => {
     };
 
     p.draw = function () {
-        p.background(0);
         rows.map(row => row.draw());
     };
 
@@ -43,7 +50,6 @@ class Row {
 
     draw() {
         this.p.stroke(255);
-        this.p.fill(0);
         this.p.beginShape();
         this.points.map(point => this.p.curveVertex(point.x, point.y));
         this.p.endShape();
