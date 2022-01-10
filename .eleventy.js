@@ -1,7 +1,8 @@
 module.exports = function (config) {
-    config.setLiquidOptions({
-        dynamicPartials: true,
-    });
+
+    // Global Variables
+    config.addGlobalData("assetsFolder", "/generative/assets");
+    config.addGlobalData("sketchesFolder", "/generative/sketches");
 
     // Static assets to pass through
     config.addPassthroughCopy({ 'src/sketches': 'sketches' });
