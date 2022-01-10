@@ -1,8 +1,11 @@
 module.exports = function (config) {
 
+    let env = process.env.ENV;
+    let folderPrefix = env == 'development' ? "" : "/generative";
+
     // Global Variables
-    config.addGlobalData("assetsFolder", "/generative/assets");
-    config.addGlobalData("sketchesFolder", "/generative/sketches");
+    config.addGlobalData("assetsFolder", `${folderPrefix}/assets`);
+    config.addGlobalData("sketchesFolder", `${folderPrefix}/sketches`);
 
     // Static assets to pass through
     config.addPassthroughCopy({ 'src/sketches': 'sketches' });
