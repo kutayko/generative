@@ -10,7 +10,7 @@ module.exports = function (config) {
     return {
         dir: {
             input: 'src/pages',
-            output: 'docs',
+            output: '_site',
         },
         passthroughFileCopy: true,
         templateFormats: ['html', 'md', 'liquid'],
