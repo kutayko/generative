@@ -32,10 +32,17 @@ let sketch = new p5((p) => {
 
         let tmpVectors = [...corners];
 
+        let j = 0;
         for (let i = 0; i < corners.length - 1; i++) {
             let newCorner = getNewCorner(corners[i], corners[i + 1]);
-            tmpVectors.splice(i + 1, 0, newCorner);
+            tmpVectors.splice(j + i + 1, 0, newCorner);
+            j++;
         }
+
+        // last point to first
+        let newCorner = getNewCorner(corners[corners.length - 1], corners[0]);
+        tmpVectors.splice(tmpVectors.length, 0, newCorner);
+
         return expandPolygon(tmpVectors, depth - 1);
     }
 
@@ -50,7 +57,7 @@ let sketch = new p5((p) => {
     };
 
     let getNewCorner = (v1, v2) => {
-        let magMultiplier = p.random(0, 0.5);
+        let magMultiplier = p.random(0.2, 0.8);
         let angle = p.randomGaussian(p.PI / 2, p.PI / 6);
 
         let vDist = p5.Vector.dist(v1, v2);
