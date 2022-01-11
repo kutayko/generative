@@ -33,8 +33,7 @@ tag: sketch
 
 <body>
     <h1>{{ sketch.title }}</h1>
-    <p>{{ sketch.created_at }}</p>
-    <p>{{ page.date }}</p>
+    <p>{{ sketch.created_at.toDateString() }}</p>
     <div id="wrapper">
         <div id="frame">
             <div id="p5Container">
