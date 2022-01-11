@@ -1,28 +1,19 @@
-<!doctype html>
-<html lang="en">
+---
+layout: layouts/base
+---
+{% setTitle "katas" %}
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>katas/</title>
-    <link rel="stylesheet" href="{{ assetsFolder }}/stylesheets/styles.css">
-  </head>
+<h1>katas</h1>
 
-  <body>
-    <main>
-        <span class="ls">.</span><br/>
-        <span class="ls">..</span><br/>
-
-        {%- for sketch in sketches | sortByDate | reverse -%}
-        <span class="ls">
-            <a href="{{ sketch.title | slug }}">{{ sketch.title }}</a>
-        </span><br/>
-        {%- endfor -%}
-
-    </main>
-  </body>
-
-</html>
-
-
-<html>
+<table>
+{%- for sketch in sketches | sortByDate | reverse -%}
+<tr>
+  <th>
+    <a href="{{ sketch.title | slug }}">{{ sketch.title }}</a>
+  </th>
+  <th>
+    <small>{{ sketch.created_at.toDateString() }}</small>
+  </th>
+</tr>
+{%- endfor -%}
+</table>

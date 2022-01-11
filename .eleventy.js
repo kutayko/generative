@@ -21,6 +21,14 @@ module.exports = function (config) {
         return [...values].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
     });
 
+    config.addShortcode("getTitle", () => {
+        return this.title;
+    });
+
+    config.addShortcode("setTitle", (title) => {
+        this.title = `${title} - generative`;
+        return '';
+    });
 
     return {
         dir: {

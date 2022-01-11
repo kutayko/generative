@@ -1,18 +1,15 @@
 <!doctype html>
 <html lang="en">
-
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% getVar "title" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
     <link rel="stylesheet" href="{{ assetsFolder }}/stylesheets/styles.css">
-
-    {% renderlayoutblock "head" %}
-
+    <title>{% getTitle %}</title>
   </head>
-
   <body>
-    {% renderlayoutblock "body" %}
+    <main class="container">
+      {{ content | safe }}
+    </main>
   </body>
-
 </html>
