@@ -21,24 +21,6 @@ module.exports = function (config) {
         return [...values].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
     });
 
-    config.addPairedShortcode('layoutblock', (content, name) => {
-        if (!this.layoutblock) this.layoutblock = {};
-        this.layoutblock[name] = content;
-    });
-
-    config.addShortcode('renderlayoutblock', (name) => {
-        return (this.layoutblock || {})[name];
-    });
-
-    config.addShortcode('setVar', (name, value) => {
-        if (!this.templateVars) this.templateVars = {};
-        this.templateVars[name] = value;
-    });
-
-    config.addShortcode('getVar', (name) => {
-        return (this.templateVars || {})[name];
-    });
-
 
     return {
         dir: {
