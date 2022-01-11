@@ -1,42 +1,34 @@
 [
     {
         "title": "10print",
-        "date": "2022-01-01",
-        "sketchFile": "10print.js"
+        "date": "2022-01-01"
     },
     {
         "title": "simple fractal tree",
-        "date": "2022-01-02",
-        "sketchFile": "simple-fractal-tree.js"
+        "date": "2022-01-02"
     },
     {
         "title": "simple trees",
-        "date": "2022-01-03",
-        "sketchFile": "simple-trees.js"
+        "date": "2022-01-03"
     },
     {
         "title": "cubic disarray",
-        "date": "2022-01-04",
-        "sketchFile": "cubic-disarray.js"
+        "date": "2022-01-04"
     },
     {
         "title": "un deux trois",
-        "date": "2022-01-05",
-        "sketchFile": "un-deux-trois.js"
+        "date": "2022-01-05"
     },
     {
         "title": "circle packing",
-        "date": "2022-01-06",
-        "sketchFile": "circle-packing.js"
+        "date": "2022-01-06"
     },
     {
         "title": "joy division",
-        "date": "2022-01-07",
-        "sketchFile": "joy-division.js"
+        "date": "2022-01-07"
     },
     {
         "title": "mondrian generator",
-        "date": "2022-01-02",
-        "sketchFile": "mondrian-generator.js"
+        "date": "2022-01-02"
     }
 ]

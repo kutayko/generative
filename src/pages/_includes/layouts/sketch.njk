@@ -3,7 +3,7 @@
 <head>
     <!-- <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script> -->
     <script src="{{ assetsFolder }}/p5.min.js"></script>
-    <script src="{{ sketchesFolder }}/{{ sketch.sketchFile if sketch.sketchFile else sketchFile }}"></script>
+    <script src="{{ sketchesFolder }}/{{ sketch.title | slug if sketch.title else title }}.js"></script>
 
     <style>
         html {
