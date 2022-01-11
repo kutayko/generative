@@ -1,4 +1,5 @@
 ---
+layout: layouts/base
 pagination:
     data: sketches
     size: 1
@@ -6,40 +7,21 @@ pagination:
 permalink: "katas/{{ sketch.title | slug }}/"
 tag: sketch
 ---
-<html>
 
-<head>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script> -->
-    <script src="{{ assetsFolder }}/p5.min.js"></script>
-    <script src="{{ sketchesFolder }}/{{ sketch.title | slug if sketch.title else title }}.js"></script>
+{% setVar "title", sketch.title %}
 
-    <style>
-        html {
-            background-color: #FBF9F4;
-        }
+{% layoutblock "head" %}
+<script src="{{ assetsFolder }}/p5.min.js"></script>
+<script src="{{ sketchesFolder }}/{{ sketch.title | slug }}.js"></script>
+{% endlayoutblock %}
 
-        #wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #frame {
-            background-color: #283747;
-            padding: 12px;
-        }
-    </style>
-</head>
-
-<body>
+{% layoutblock "body" %}
+<main>
     <h1>{{ sketch.title }}</h1>
-    <p>{{ sketch.created_at.toDateString() }}</p>
-    <div id="wrapper">
-        <div id="frame">
-            <div id="p5Container">
-            </div>
-        </div>
-    </div>
-</body>
 
-</html>
+    <p>{{ sketch.created_at.toDateString() }}</p>
+
+    <div id="sketch-container">
+    </div>
+</main>
+{% endlayoutblock %}

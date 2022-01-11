@@ -37,7 +37,7 @@ let sketch = new p5((p) => {
         tree.map(x => x.show());
     };
 
-}, 'p5Container');
+}, 'sketch-container');
 
 
 class Branch {

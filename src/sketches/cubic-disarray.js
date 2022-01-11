@@ -37,6 +37,6 @@ let sketch = new p5((p) => {
          return p.random(-1, 1) * p.map(y, 0, p.height, 0, 30);
     };
 
-}, 'p5Container');
+}, 'sketch-container');
 
 

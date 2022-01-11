@@ -57,7 +57,7 @@ let sketch = new p5((p) => {
         console.log(squares);
     };
 
-}, 'p5Container');
+}, 'sketch-container');
 
 
 class Square {
