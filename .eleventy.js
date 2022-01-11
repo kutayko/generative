@@ -17,7 +17,7 @@ module.exports = function (config) {
             output: '_site',
         },
         passthroughFileCopy: true,
-        templateFormats: ['html', 'md', 'liquid'],
+        templateFormats: ['html', 'md', 'liquid', 'njk'],
         htmlTemplateEngine: 'liquid',
         dataTemplateEngine: 'liquid',
         markdownTemplateEngine: 'liquid',

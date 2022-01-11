@@ -1,0 +1,10 @@
+---
+layout: layouts/sketch.njk
+pagination:
+    data: sketches
+    size: 1
+    alias: sketch
+permalink: "/learn/{{ sketch.title | slug }}/"
+title: {{ sketch.title }}
+sketchFile: {{ sketch.sketchFile }}
+---

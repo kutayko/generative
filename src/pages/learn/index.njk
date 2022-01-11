@@ -1,0 +1,20 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <main>
+    <span class="ls">.</span><br/>
+    <span class="ls">..</span><br/>
+
+    {%- for sketch in collections.sketches -%}
+    <span class="ls">
+        <a href="{{ sketch.url }}">{{ sketch.data.title }}</a>
+    </span><br/>
+    {%- endfor -%}
+
+    </main>
+</body>
+
+</html>
