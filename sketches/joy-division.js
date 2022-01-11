@@ -32,7 +32,7 @@ let sketch = new p5((p) => {
         rows.map(row => row.draw());
     };
 
-}, 'p5Container');
+}, 'sketch-container');
 
 class Row {
     constructor(p, y, spacing) {

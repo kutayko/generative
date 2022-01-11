@@ -36,4 +36,4 @@ let sketch = new p5((p) => {
         }
     }
 
-}, 'p5Container');
+}, 'sketch-container');
