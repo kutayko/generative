@@ -8,9 +8,9 @@
     <span class="ls">.</span><br/>
     <span class="ls">..</span><br/>
 
-    {%- for sketch in collections.sketches -%}
+    {%- for sketch in sketches -%}
     <span class="ls">
-        <a href="{{ sketch.url }}">{{ sketch.data.title }}</a>
+        <a href="{{ sketch.title | slug }}">{{ sketch.title }}</a>
     </span><br/>
     {%- endfor -%}
 
