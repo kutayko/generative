@@ -16,80 +16,90 @@ let sketch = new p5((p) => {
         p.stroke(fgColor);
         p.noFill();
 
-        p.strokeWeight(4);
+        p.strokeWeight(8);
 
         p.noLoop();
     };
 
     p.draw = function () {
-        squares.push(createSquare(0, 0, 600, 600));
+        squares.push(new Square(p, 0, 0, 600, 600));
+
+        let final = [];
 
         i = 0;
-        let step = 90;
+        let step = 100;
         while (i < p.width) {
-            squares.forEach((sq, index, arr) => {
-                let xSplit = p.random() < 0.5 ? sq.splitOn({ x: i }) : [];
-                let ySplit = p.random() < 0.5 ? sq.splitOn({ y: i }) : [];
-                let newSquares = xSplit.concat(ySplit);
-                if (newSquares.length) {
-                    squares.splice(index, 1);
-                }
-                squares = squares.concat(xSplit).concat(ySplit);
+            tmp = [];
+            squares.forEach((sq, index) => {
+                let newSquares = p.random() < 0.5 ? sq.splitOn({ x: i }) : [sq];
+
+                let tmp2 = [];
+                newSquares.forEach((sq2, index2) => {
+                    tmp2 = tmp2.concat(
+                        p.random() < 0.5 ? sq2.splitOn({ y: i }) : [sq2]
+                    );
+                });
+
+                tmp = tmp.concat(tmp2);
             });
+            squares = tmp
 
             i += step;
+            p.background(bgColor);
         }
-
-        squares.map(sq => sq.draw());
 
         colors.forEach(color => {
-            squares[Math.floor(p.random() * squares.length)].addColor(color);
+            squares[Math.floor(p.random() * squares.length)].color = color;
         });
-    };
 
-    let createSquare = (x, y, w, h) => {
-        let draw = () => p.rect(x, y, w, h);
+        squares.map((sq, index) => sq.draw(index));
 
-        let splitOn = (coordinates) => {
-            let { x: sx, y: sy } = coordinates;
-
-            if (sx && sx > x && sx < x + w) {
-                let size1 = sx - x;
-                let size2 = x + w - sx;
-
-                return [
-                    createSquare(x, y, size1, h),
-                    createSquare(x + size1, y, size2, h)
-                ];
-            }
-
-            if (sy && sy > y && sy < y + h) {
-                let size1 = sy - y;
-                let size2 = y + h - sy;
-
-                return [
-                    createSquare(x, y, w, size1),
-                    createSquare(x, y + size1, w, size2)
-                ]
-            }
-
-            return [];
-        };
-
-        let addColor = (color) => {
-            p.fill(color);
-            p.rect(x, y, w, h);
-        };
-
-        return {
-            x,
-            y,
-            w,
-            h,
-            draw,
-            splitOn,
-            addColor
-        }
+        console.log(squares);
     };
 
 }, 'p5Container');
+
+
+class Square {
+    constructor(p, x, y, w, h) {
+        this.p = p;
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+    }
+
+    draw(index) {
+        if (this.color) {
+            this.p.fill(this.color);
+        }
+        this.p.rect(this.x, this.y, this.w, this.h);
+        this.p.noFill();
+    }
+
+    splitOn(coordinates) {
+        let { x: sx, y: sy } = coordinates;
+
+        if (sx && sx > this.x && sx < this.x + this.w) {
+            let size1 = sx - this.x;
+            let size2 = this.x + this.w - sx;
+
+            return [
+                new Square(this.p, this.x, this.y, size1, this.h),
+                new Square(this.p, this.x + size1, this.y, size2, this.h)
+            ];
+        }
+
+        if (sy && sy > this.y && sy < this.y + this.h) {
+            let size1 = sy - this.y;
+            let size2 = this.y + this.h - sy;
+
+            return [
+                new Square(this.p, this.x, this.y, this.w, size1),
+                new Square(this.p, this.x, this.y + size1, this.w, size2)
+            ];
+        }
+
+        return [this];
+    }
+}
