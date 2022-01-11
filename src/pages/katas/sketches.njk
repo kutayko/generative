@@ -1,5 +1,4 @@
 ---
-layout: layouts/base
 pagination:
     data: sketches
     size: 1
@@ -7,21 +6,32 @@ pagination:
 permalink: "katas/{{ sketch.title | slug }}/"
 tag: sketch
 ---
+<!doctype html>
+<html lang="en">
 
-{% setVar "title", sketch.title %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ sketch.title }}</title>
+    <link rel="stylesheet" href="{{ assetsFolder }}/stylesheets/styles.css">
 
-{% layoutblock "head" %}
-<script src="{{ assetsFolder }}/p5.min.js"></script>
-<script src="{{ sketchesFolder }}/{{ sketch.title | slug }}.js"></script>
-{% endlayoutblock %}
+    <script src="{{ assetsFolder }}/p5.min.js"></script>
+    <script src="{{ sketchesFolder }}/{{ sketch.title | slug }}.js"></script>
+  </head>
 
-{% layoutblock "body" %}
-<main>
-    <h1>{{ sketch.title }}</h1>
+  <body>
+    <header>
+        <div id="navbar">
+            <a href="..">katas</a>
+        </div>
 
-    <p>{{ sketch.created_at.toDateString() }}</p>
+        <h1>{{ sketch.title }}</h1>
+        <p>{{ sketch.created_at.toDateString() }}</p>
+    </header>
+    <main>
+        <div id="sketch-container">
+        </div>
+    </main>
+  </body>
 
-    <div id="sketch-container">
-    </div>
-</main>
-{% endlayoutblock %}
+</html>

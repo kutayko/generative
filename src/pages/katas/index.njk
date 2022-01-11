@@ -1,20 +1,28 @@
-<html>
+<!doctype html>
+<html lang="en">
 
-<head>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>katas/</title>
+    <link rel="stylesheet" href="{{ assetsFolder }}/stylesheets/styles.css">
+  </head>
 
-<body>
+  <body>
     <main>
-    <span class="ls">.</span><br/>
-    <span class="ls">..</span><br/>
+        <span class="ls">.</span><br/>
+        <span class="ls">..</span><br/>
 
-    {%- for sketch in sketches | sortByDate | reverse -%}
-    <span class="ls">
-        <a href="{{ sketch.title | slug }}">{{ sketch.title }}</a>
-    </span><br/>
-    {%- endfor -%}
+        {%- for sketch in sketches | sortByDate | reverse -%}
+        <span class="ls">
+            <a href="{{ sketch.title | slug }}">{{ sketch.title }}</a>
+        </span><br/>
+        {%- endfor -%}
 
     </main>
-</body>
+  </body>
 
 </html>
+
+
+<html>
