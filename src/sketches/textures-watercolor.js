@@ -16,7 +16,7 @@ let sketch = new p5((p) => {
     p.draw = function () {
         let x = 300;
         let y = 300;
-        let basePolygon = getBasePolygon(100, 10);
+        let basePolygon = getBasePolygon(75, 10);
 
         let i = 0;
         while(i < 50) {
@@ -50,8 +50,8 @@ let sketch = new p5((p) => {
     };
 
     let getNewCorner = (v1, v2) => {
-        let magMultiplier = p.random(-0.5, 0.5);
-        let angleMultiplier = p.random(0.8, 1.2);
+        let magMultiplier = p.random(0, 0.5);
+        let angle = p.randomGaussian(p.PI / 2, p.PI / 6);
 
         let vDist = p5.Vector.dist(v1, v2);
         let pointPos = p.randomGaussian(vDist / 2, vDist / 5);
@@ -64,7 +64,7 @@ let sketch = new p5((p) => {
 
         let tmpVector = p5.Vector.sub(v1, v2);
         tmpVector.mult(magMultiplier);
-        tmpVector.rotate(p.PI / 2 * angleMultiplier);
+        tmpVector.rotate(angle);
 
         let newCorner = p5.Vector.add(midPoint, tmpVector);
         return newCorner;
