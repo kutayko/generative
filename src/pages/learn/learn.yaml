@@ -1,0 +1,24 @@
+sketches:
+    - title: 10print
+      created_at: 2022-01-01
+
+    - title: simple fractal tree
+      created_at: 2022-01-02
+
+    - title: simple trees
+      created_at: 2022-01-03
+
+    - title: cubic disarray
+      created_at: 2022-01-04
+
+    - title: un deux trois
+      created_at: 2022-01-05
+
+    - title: circle packing
+      created_at: 2022-01-06
+
+    - title: joy division
+      created_at: 2022-01-07
+
+    - title: mondrian generator
+      created_at: 2022-01-08

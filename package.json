@@ -20,5 +20,8 @@
   "homepage": "https://github.com/kutayko/generative#readme",
   "devDependencies": {
     "@11ty/eleventy": "^1.0.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
   }
 }

@@ -8,7 +8,7 @@
     <span class="ls">.</span><br/>
     <span class="ls">..</span><br/>
 
-    {%- for sketch in sketches -%}
+    {%- for sketch in sketches | sortByDate | reverse -%}
     <span class="ls">
         <a href="{{ sketch.title | slug }}">{{ sketch.title }}</a>
     </span><br/>

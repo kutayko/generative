@@ -1,9 +1,46 @@
 ---
-layout: layouts/sketch.njk
 pagination:
     data: sketches
     size: 1
     alias: sketch
-permalink: "/learn/{{ sketch.title | slug }}/"
-title: {{ sketch.title }}
+permalink: "learn/{{ sketch.title | slug }}/"
+tag: sketch
 ---
+<html>
+
+<head>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script> -->
+    <script src="{{ assetsFolder }}/p5.min.js"></script>
+    <script src="{{ sketchesFolder }}/{{ sketch.title | slug if sketch.title else title }}.js"></script>
+
+    <style>
+        html {
+            background-color: #FBF9F4;
+        }
+
+        #wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #frame {
+            background-color: #283747;
+            padding: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{ sketch.title }}</h1>
+    <p>{{ sketch.created_at }}</p>
+    <p>{{ page.date }}</p>
+    <div id="wrapper">
+        <div id="frame">
+            <div id="p5Container">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
