@@ -6,6 +6,7 @@ module.exports = function (config) {
     let folderPrefix = env == 'development' ? "" : "/generative";
 
     // Global Variables
+    config.addGlobalData("rootFolder", `${folderPrefix}`);
     config.addGlobalData("assetsFolder", `${folderPrefix}/assets`);
     config.addGlobalData("sketchesFolder", `${folderPrefix}/sketches`);
 
