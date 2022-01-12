@@ -1,5 +1,9 @@
 let sketch = new p5((p) => {
 
+    // TODO: use darker shape in the center
+    // TODO: blend colors
+    // TODO: use noise for varience?
+
     // Colors
     let COLORS = {
         bg: [40, 50, 97],
