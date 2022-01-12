@@ -16,9 +16,12 @@ let sketch = new p5((p) => {
     };
 
     p.draw = function () {
+        let basePolygon = new Polygon({ size: 75 });
+        basePolygon.expand(3);
+
         let i = 0;
         while(i < 50) {
-            let polygon = new Polygon(75);
+            let polygon = new Polygon({ base: basePolygon });
             polygon.expand(3);
             polygon.draw();
             i++;
@@ -26,22 +29,21 @@ let sketch = new p5((p) => {
 
     };
 
-    class Corner {
+    class Corner extends p5.Vector {
         constructor(x, y) {
-            this.x = x;
-            this.y = y;
+            super(x, y);
             this.varience = 0.5;
         }
 
         static createNew(c1, c2) {
-            let magMultiplier = p.random(0.2, 0.8);
+            let magMultiplier = p.randomGaussian(0.5, 0.3);
             let angle = p.randomGaussian(p.PI / 2, p.PI / 6);
 
             let vDist = p5.Vector.dist(c1, c2);
             let pointPos = p.randomGaussian(vDist / 2, vDist / 5);
 
             let slope = p.atan2(c2.y - c1.y, c2.x - c1.x);
-            let midPoint = p.createVector(
+            let midPoint = new Corner(
                 c1.x + pointPos * p.cos(slope),
                 c1.y + pointPos * p.sin(slope),
             );
@@ -75,15 +77,15 @@ let sketch = new p5((p) => {
     }
 
     class Polygon {
-        constructor(size, x = p.width / 2, y = p.height / 2, edges = 10) {
-            this.size = size;
-            this.x = x;
-            this.y = y;
-            this.edges = edges;
+        constructor({ base = {}, size, x, y, edges }) {
+            this.size = size || base.size;
+            this.x = x || base.x || p.width / 2;
+            this.y = y || base.y || p.height / 2;;
+            this.edges = edges || base.edges || 10;
 
             this.opacity = 0.04;
 
-            this.corners = this.getBaseCorners();
+            this.corners = base.corners || this.getBaseCorners();
         }
 
         getBaseCorners() {
@@ -91,7 +93,7 @@ let sketch = new p5((p) => {
             for (let i = 0; i < p.TWO_PI; i += p.TWO_PI / this.edges) {
                 let x = this.size * p.cos(i);
                 let y = this.size * p.sin(i);
-                corners.push(p.createVector(x, y));
+                corners.push(new Corner(x, y));
             }
             return corners;
         }
