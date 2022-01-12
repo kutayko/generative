@@ -30,20 +30,20 @@ let sketch = new p5((p) => {
     };
 
     class Corner extends p5.Vector {
-        constructor(x, y) {
+        constructor(x, y, variance) {
             super(x, y);
-            this.varience = 0.5;
+            this.variance = variance;
         }
 
         static createNew(c1, c2) {
-            let magMultiplier = p.randomGaussian(0.5, 0.3);
+            let magMultiplier = p.randomGaussian(0.5, c2.variance);
             let angle = p.randomGaussian(p.PI / 2, p.PI / 6);
 
             let vDist = p5.Vector.dist(c1, c2);
             let pointPos = p.randomGaussian(vDist / 2, vDist / 5);
 
             let slope = p.atan2(c2.y - c1.y, c2.x - c1.x);
-            let midPoint = new Corner(
+            let midPoint = p.createVector(
                 c1.x + pointPos * p.cos(slope),
                 c1.y + pointPos * p.sin(slope),
             );
@@ -53,7 +53,7 @@ let sketch = new p5((p) => {
             tmpVector.rotate(angle);
 
             let newCorner = p5.Vector.add(midPoint, tmpVector);
-            return newCorner;
+            return new Corner(newCorner.x, newCorner.y, c2.variance);
         }
 
         static splitAll(corners, depth=3) {
@@ -70,7 +70,7 @@ let sketch = new p5((p) => {
 
             // last point to first
             let newCorner = Corner.createNew(corners[corners.length - 1], corners[0]);
-            tmpVectors.splice(tmpVectors.length, 0, newCorner);
+            tmpVectors.push(newCorner);
 
             return Corner.splitAll(tmpVectors, depth - 1);
         }
@@ -84,6 +84,7 @@ let sketch = new p5((p) => {
             this.edges = edges || base.edges || 10;
 
             this.opacity = 0.04;
+            this.maxCornerVarience = 0.5;
 
             this.corners = base.corners || this.getBaseCorners();
         }
@@ -93,7 +94,8 @@ let sketch = new p5((p) => {
             for (let i = 0; i < p.TWO_PI; i += p.TWO_PI / this.edges) {
                 let x = this.size * p.cos(i);
                 let y = this.size * p.sin(i);
-                corners.push(new Corner(x, y));
+                let variance = p.random(0, this.maxCornerVarience);
+                corners.push(new Corner(x, y, variance));
             }
             return corners;
         }
