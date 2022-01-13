@@ -13,6 +13,10 @@ tag: sketch
 <script src="{{ assetsFolder }}/p5.min.js"></script>
 <script src="{{ sketchesFolder }}/{{ sketch.title | slug }}.js"></script>
 
+{% for lib in sketch.load %}
+  <script src="{{ libFolder }}/{{ lib }}.js"></script>
+{% endfor %}}
+
 <header>
     <nav>
       <ul>
