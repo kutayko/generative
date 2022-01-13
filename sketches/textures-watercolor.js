@@ -30,13 +30,16 @@ let sketch = new p5((p) => {
         coordinates.map(c => {
             strokes.push(new Watercolor({
                 p,
-                size: p.randomGaussian(50, 25),
+                size: p.randomGaussian(75, 25),
                 x: c.x,
                 y: c.y,
                 color: p.random(colors),
             }));
         });
         Watercolor.draw(strokes, 17);
+
+        let overlay = new CanvasOverlay(p, p.width, p.height).getOverlay();
+        p.blend(overlay, 0, 0, p.width, p.height, 0, 0, p.width, p.height, p.OVERLAY);
     };
 
 }, 'sketch-container');

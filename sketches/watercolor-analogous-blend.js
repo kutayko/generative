@@ -52,6 +52,9 @@ let sketch = new p5((p) => {
             p.stroke(...COLORS.o1, 0.5 - i * 0.001);
             p.circle(300, 300, 50 + i);
         }
+
+        let overlay = new CanvasOverlay(p, p.width, p.height).getOverlay();
+        p.blend(overlay, 0, 0, p.width, p.height, 0, 0, p.width, p.height, p.OVERLAY);
     };
 
 }, 'sketch-container');
