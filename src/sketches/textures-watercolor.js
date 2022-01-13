@@ -18,7 +18,7 @@ let sketch = new p5((p) => {
     };
 
     p.draw = function () {
-        let strokes = [];
+        let blobs = [];
         let coordinates = [
             {x: 200, y: 200},
             { x: 400, y: 200 },
@@ -28,7 +28,7 @@ let sketch = new p5((p) => {
         let colors = [COLORS.orange, COLORS.purple, COLORS.blue];
 
         coordinates.map(c => {
-            strokes.push(new Watercolor({
+            blobs.push(new Watercolor({
                 p,
                 size: p.randomGaussian(75, 25),
                 x: c.x,
@@ -36,10 +36,12 @@ let sketch = new p5((p) => {
                 color: p.random(colors),
             }));
         });
-        Watercolor.draw(strokes, 17);
-
-        let overlay = new CanvasOverlay(p, p.width, p.height).getOverlay();
-        p.blend(overlay, 0, 0, p.width, p.height, 0, 0, p.width, p.height, p.OVERLAY);
+        Watercolor.draw({
+            p,
+            blobs,
+            layers: 17,
+            overlay: new CanvasOverlay({ p })
+        });
     };
 
 }, 'sketch-container');

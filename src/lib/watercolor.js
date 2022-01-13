@@ -28,25 +28,27 @@ class Watercolor {
         this.corners = Corner.splitAll(this.p, this.corners, depth);
     }
 
-    drawLayer() {
-        this.p.noStroke();
-        this.p.fill(...this.color, this.opacity);
+    drawLayer(pg) {
+        pg.colorMode(pg.HSL);
+        pg.noStroke();
+        pg.fill(...this.color, this.opacity);
 
-        this.p.push();
-        this.p.translate(this.x, this.y);
+        pg.push();
+        pg.translate(this.x, this.y);
 
-        this.p.beginShape();
+        pg.beginShape();
         this.corners.map(c => {
-            this.p.vertex(c.x, c.y);
+            pg.vertex(c.x, c.y);
         });
-        this.p.endShape(this.p.CLOSE);
+        pg.endShape(this.p.CLOSE);
 
-        this.p.pop();
+        pg.pop();
     }
 
-    static draw(blobs, layers=7) {
+    static draw({ p, blobs, layers=17, overlay }) {
         let i = 1;
         while (i <= 3) {
+            let pg = p.createGraphics(p.width, p.height);
             blobs.map(b => b.expand());
 
             let j = 0;
@@ -54,11 +56,20 @@ class Watercolor {
                 blobs.map(b => {
                     let layer = new Watercolor({ base: b });
                     layer.expand(3);
-                    layer.drawLayer();
+                    layer.drawLayer(pg);
 
                 });
                 j++;
             }
+
+            if(overlay) {
+                let layerImg= pg.get();
+                layerImg.mask(overlay.getOverlay());
+                p.image(layerImg, 0, 0);
+            } else {
+                p.image(pg, 0, 0);
+            }
+
             i++;
         }
     }
