@@ -9,10 +9,12 @@ module.exports = function (config) {
     config.addGlobalData("rootFolder", `${folderPrefix}`);
     config.addGlobalData("assetsFolder", `${folderPrefix}/assets`);
     config.addGlobalData("sketchesFolder", `${folderPrefix}/sketches`);
+    config.addGlobalData("libFolder", `${folderPrefix}/lib`);
 
     // Static assets to pass through
     config.addPassthroughCopy({ 'src/sketches': 'sketches' });
     config.addPassthroughCopy({ 'src/assets': 'assets' });
+    config.addPassthroughCopy({ 'src/lib': 'lib' });
 
     // Custom data files
     config.addDataExtension("yaml", contents => yaml.load(contents));
