@@ -4,7 +4,8 @@ let sketch = new p5((p) => {
     let COLORS = {
         bg: [40, 50, 97],
         orange: [11, 59, 51],
-        blue: [276, 34 , 69]
+        purple: [276, 34 , 69],
+        blue: [191, 56, 51]
     };
 
     p.setup = function () {
@@ -17,69 +18,25 @@ let sketch = new p5((p) => {
     };
 
     p.draw = function () {
-        let w1 = new Watercolor({
-            size: 75,
-            x: 250,
-            y: 300,
-            color: COLORS.orange
-        });
+        let strokes = [];
+        let coordinates = [
+            {x: 200, y: 200},
+            { x: 400, y: 200 },
+            { x: 200, y: 400 },
+            { x: 400, y: 400 },
+        ];
+        let colors = [COLORS.orange, COLORS.purple, COLORS.blue];
 
-        let w2 = new Watercolor({
-            size: 75,
-            x: 350,
-            y: 300,
-            color: COLORS.blue
+        coordinates.map(c => {
+            strokes.push(new Watercolor({
+                size: p.randomGaussian(50, 25),
+                x: c.x,
+                y: c.y,
+                color: p.random(colors)
+            }));
         });
-
-        Watercolor.draw([w1, w2]);
+        Watercolor.draw(strokes);
     };
-
-    class Corner extends p5.Vector {
-        constructor(x, y, variance) {
-            super(x, y);
-            this.variance = variance;
-        }
-
-        static createNew(c1, c2) {
-            let magMultiplier = p.randomGaussian(0.5, c2.variance);
-            let angle = p.randomGaussian(p.PI / 2, p.PI / 6);
-
-            let vDist = p5.Vector.dist(c1, c2);
-            let pointPos = p.randomGaussian(vDist / 2, vDist / 5);
-
-            let slope = p.atan2(c2.y - c1.y, c2.x - c1.x);
-            let midPoint = p.createVector(
-                c1.x + pointPos * p.cos(slope),
-                c1.y + pointPos * p.sin(slope),
-            );
-
-            let tmpVector = p5.Vector.sub(c1, c2);
-            tmpVector.mult(magMultiplier);
-            tmpVector.rotate(angle);
-
-            let newCorner = p5.Vector.add(midPoint, tmpVector);
-            return new Corner(newCorner.x, newCorner.y, c2.variance);
-        }
-
-        static splitAll(corners, depth=3) {
-            if (depth <= 0) { return corners; }
-
-            let tmpVectors = [...corners];
-
-            let j = 0;
-            for (let i = 0; i < corners.length - 1; i++) {
-                let newCorner = Corner.createNew(corners[i], corners[i + 1]);
-                tmpVectors.splice(j + i + 1, 0, newCorner);
-                j++;
-            }
-
-            // last point to first
-            let newCorner = Corner.createNew(corners[corners.length - 1], corners[0]);
-            tmpVectors.push(newCorner);
-
-            return Corner.splitAll(tmpVectors, depth - 1);
-        }
-    }
 
     class Watercolor {
         constructor({ base = {}, size, x, y, edges, color }) {
@@ -143,6 +100,53 @@ let sketch = new p5((p) => {
                 }
                 i++;
             }
+        }
+    }
+
+    class Corner extends p5.Vector {
+        constructor(x, y, variance) {
+            super(x, y);
+            this.variance = variance;
+        }
+
+        static createNew(c1, c2) {
+            let magMultiplier = p.randomGaussian(0.5, c2.variance);
+            let angle = p.randomGaussian(p.PI / 2, p.PI / 6);
+
+            let vDist = p5.Vector.dist(c1, c2);
+            let pointPos = p.randomGaussian(vDist / 2, vDist / 5);
+
+            let slope = p.atan2(c2.y - c1.y, c2.x - c1.x);
+            let midPoint = p.createVector(
+                c1.x + pointPos * p.cos(slope),
+                c1.y + pointPos * p.sin(slope),
+            );
+
+            let tmpVector = p5.Vector.sub(c1, c2);
+            tmpVector.mult(magMultiplier);
+            tmpVector.rotate(angle);
+
+            let newCorner = p5.Vector.add(midPoint, tmpVector);
+            return new Corner(newCorner.x, newCorner.y, c2.variance);
+        }
+
+        static splitAll(corners, depth = 3) {
+            if (depth <= 0) { return corners; }
+
+            let tmpVectors = [...corners];
+
+            let j = 0;
+            for (let i = 0; i < corners.length - 1; i++) {
+                let newCorner = Corner.createNew(corners[i], corners[i + 1]);
+                tmpVectors.splice(j + i + 1, 0, newCorner);
+                j++;
+            }
+
+            // last point to first
+            let newCorner = Corner.createNew(corners[corners.length - 1], corners[0]);
+            tmpVectors.push(newCorner);
+
+            return Corner.splitAll(tmpVectors, depth - 1);
         }
     }
 
