@@ -53,8 +53,6 @@ let sketch = new p5((p) => {
         });
 
         squares.map((sq, index) => sq.draw(index));
-
-        console.log(squares);
     };
 
 }, 'sketch-container');
