@@ -1,13 +1,10 @@
 let sketch = new p5((p) => {
 
-    // TODO: use darker shape in the center
-    // TODO: blend colors
-    // TODO: use noise for varience?
-
     // Colors
     let COLORS = {
         bg: [40, 50, 97],
-        fg: [11, 59, 51]
+        orange: [11, 59, 51],
+        blue: [276, 34 , 69]
     };
 
     p.setup = function () {
@@ -20,17 +17,21 @@ let sketch = new p5((p) => {
     };
 
     p.draw = function () {
-        let basePolygon = new Polygon({ size: 75 });
-        basePolygon.expand(3);
+        let w1 = new Watercolor({
+            size: 75,
+            x: 250,
+            y: 300,
+            color: COLORS.orange
+        });
 
-        let i = 0;
-        while(i < 50) {
-            let polygon = new Polygon({ base: basePolygon });
-            polygon.expand(3);
-            polygon.draw();
-            i++;
-        }
+        let w2 = new Watercolor({
+            size: 75,
+            x: 350,
+            y: 300,
+            color: COLORS.blue
+        });
 
+        Watercolor.draw([w1, w2]);
     };
 
     class Corner extends p5.Vector {
@@ -80,12 +81,13 @@ let sketch = new p5((p) => {
         }
     }
 
-    class Polygon {
-        constructor({ base = {}, size, x, y, edges }) {
+    class Watercolor {
+        constructor({ base = {}, size, x, y, edges, color }) {
             this.size = size || base.size;
             this.x = x || base.x || p.width / 2;
             this.y = y || base.y || p.height / 2;;
             this.edges = edges || base.edges || 10;
+            this.color = color || base.color;
 
             this.opacity = 0.04;
             this.maxCornerVarience = 0.5;
@@ -108,9 +110,9 @@ let sketch = new p5((p) => {
             this.corners = Corner.splitAll(this.corners, depth);
         }
 
-        draw() {
+        drawLayer() {
             p.noStroke();
-            p.fill(...COLORS.fg, this.opacity);
+            p.fill(...this.color, this.opacity);
 
             p.push();
             p.translate(this.x, this.y);
@@ -124,6 +126,24 @@ let sketch = new p5((p) => {
             p.pop();
         }
 
+        static draw(blobs) {
+            let i = 1;
+            while (i <= 3) {
+                blobs.map(b => b.expand(1));
+
+                let j = 0;
+                while (j < 17) {
+                    blobs.map(b => {
+                        let layer = new Watercolor({ base: b });
+                        layer.expand(3);
+                        layer.drawLayer();
+
+                    });
+                    j++;
+                }
+                i++;
+            }
+        }
     }
 
 }, 'sketch-container');
