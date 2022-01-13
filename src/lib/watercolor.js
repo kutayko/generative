@@ -24,7 +24,7 @@ class Watercolor {
         return corners;
     }
 
-    expand(depth = 3) {
+    expand(depth = 1) {
         this.corners = Corner.splitAll(this.p, this.corners, depth);
     }
 
@@ -44,13 +44,13 @@ class Watercolor {
         this.p.pop();
     }
 
-    static draw(blobs) {
+    static draw(blobs, layers=7) {
         let i = 1;
         while (i <= 3) {
-            blobs.map(b => b.expand(1));
+            blobs.map(b => b.expand());
 
             let j = 0;
-            while (j < 17) {
+            while (j < layers) {
                 blobs.map(b => {
                     let layer = new Watercolor({ base: b });
                     layer.expand(3);

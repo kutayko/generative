@@ -16,6 +16,9 @@ module.exports = function (config) {
     config.addPassthroughCopy({ 'src/assets': 'assets' });
     config.addPassthroughCopy({ 'src/lib': 'lib' });
 
+    // watch targets
+    config.addWatchTarget("src/lib");
+
     // Custom data files
     config.addDataExtension("yaml", contents => yaml.load(contents));
 

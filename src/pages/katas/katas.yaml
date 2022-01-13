@@ -26,3 +26,7 @@ sketches:
     - title: textures watercolor
       created_at: 2022-01-11
       load: ['watercolor']
+
+    - title: watercolor analogous blend
+      created_at: 2022-01-13
+      load: ['watercolor']

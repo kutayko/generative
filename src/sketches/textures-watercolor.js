@@ -36,7 +36,7 @@ let sketch = new p5((p) => {
                 color: p.random(colors),
             }));
         });
-        Watercolor.draw(strokes);
+        Watercolor.draw(strokes, 17);
     };
 
 }, 'sketch-container');
