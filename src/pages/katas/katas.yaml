@@ -27,6 +27,6 @@ sketches:
       created_at: 2022-01-11
       load: ['watercolor', 'overlays/canvas']
 
-    - title: watercolor analogous blend
+    - title: watercolor blend test
       created_at: 2022-01-13
       load: ['watercolor', 'overlays/canvas']

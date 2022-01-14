@@ -39,8 +39,7 @@ let sketch = new p5((p) => {
         Watercolor.draw({
             p,
             blobs,
-            layers: 17,
-            overlay: new CanvasOverlay({ p })
+            layers: 17
         });
     };
 
