@@ -3,8 +3,8 @@ let sketch = new p5((p) => {
     // Colors
     let COLORS = {
         bg: [40, 50, 97],
-        c1: [33, 40, 52],
-        c2: [0, 40, 54],
+        c1: [33, 60, 72],
+        c2: [0, 50, 54],
         c3: [249, 40, 55],
         c4: [217, 30, 41]
     };
@@ -39,7 +39,7 @@ let sketch = new p5((p) => {
 
                 blobs.push(new Watercolor({
                     p,
-                    size: p.randomGaussian(75, 25),
+                    size: p.randomGaussian(50, 25),
                     x: j * step,
                     y: i * step,
                     color: color,
@@ -50,7 +50,7 @@ let sketch = new p5((p) => {
         Watercolor.draw({
             p,
             blobs,
-            overlay: new CanvasOverlay({ p, lineCount: 25000 })
+            overlay: new CanvasOverlay({ p, lineCount: 30000 })
         });
     };
 
