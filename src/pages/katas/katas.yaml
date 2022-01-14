@@ -30,3 +30,7 @@ sketches:
     - title: watercolor blend test
       created_at: 2022-01-13
       load: ['watercolor', 'overlays/canvas']
+
+    - title: clouds
+      created_at: 2022-01-14
+      load: ['watercolor', 'overlays/canvas']
