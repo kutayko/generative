@@ -3,10 +3,31 @@ let sketch = new p5((p) => {
     // Colors
     let COLORS = {
         bg: [40, 50, 97],
-        c1: [33, 60, 72],
-        c2: [40, 50, 97],
-        c3: [214, 45, 90],
-        c4: [300, 34, 70]
+        s1: {
+            gradient: [
+                [229, 41, 37],
+                [455, 31, 65]
+            ],
+            clouds: [
+                [33, 60, 72],
+                [40, 50, 97],
+                [214, 45, 90],
+                [300, 34, 70]
+            ]
+        },
+
+        s2: {
+            gradient: [
+                [203, 60, 37],
+                [196, 67, 82]
+            ],
+            clouds: [
+                [33, 40, 86],
+                [214, 45, 90],
+                [40, 30, 87],
+                [40, 50, 97]
+            ]
+        }
     };
 
     p.setup = function () {
@@ -19,13 +40,16 @@ let sketch = new p5((p) => {
     };
 
     p.draw = function () {
+        let colors = COLORS.s2;
+
         // background gradient
         for (let i = 0; i < p.height; i++) {
-            p.stroke(
-                p.map(i, p.height, 0, 455, 229),
-                p.map(i, p.height, 0, 31, 41),
-                p.map(i, p.height, 0, 65, 37)
+            let c = p.lerpColor(
+                p.color(colors.gradient[0]),
+                p.color(colors.gradient[1]),
+                p.map(i, 0, p.height, 0, 1)
             );
+            p.stroke(c);
             p.line(0, i, p.width, i);
         }
 
@@ -41,38 +65,17 @@ let sketch = new p5((p) => {
                     size: p.randomGaussian(100, 25),
                     x: j * step,
                     y: i * step,
-                    color: p.random([COLORS.bg, COLORS.c1, COLORS.c2, COLORS.c3, COLORS.c4])
+                    color: p.random([
+                        COLORS.bg, colors.clouds[0], colors.clouds[1], colors.clouds[2], colors.clouds[3]
+                    ])
                 }));
             }
         }
 
         Watercolor.draw({
             p,
-            blobs,
-            // overlay: new CanvasOverlay({ p, lineCount: 100000 })
+            blobs
         });
     };
 
-    let disperseMask = () => {
-        pImg = p.get();
-        p.background(...COLORS.bg);
-
-        let twothirds = p.width / 3 * 2;
-        let alphaMask = p.createGraphics(p.width, p.height);
-        alphaMask.fill('black');
-        alphaMask.rect(0, 0, twothirds, p.height);
-        for (i = 0; i < 20; i++) {
-            alphaMask.rect(twothirds + fibonacci(i) + 12 * i, 0, 10, p.height);
-        }
-
-        pImg.mask(alphaMask);
-        p.image(pImg, 0, 0);
-    }
-
 }, 'sketch-container');
-
-let fibonacci = (n) => {
-    if(n == 0) { return 0; }
-    if(n == 1) { return 1; }
-    return fibonacci(n - 1) + fibonacci(n - 2);
-};
