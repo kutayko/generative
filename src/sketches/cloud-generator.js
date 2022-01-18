@@ -3,35 +3,20 @@ let sketch = new p5((p) => {
     // Colors
     let COLORS = {
         bg: [40, 50, 97],
-        s1: {
-            gradient: [
-                [229, 41, 37],
-                [455, 31, 65]
-            ],
-            clouds: [
-                [33, 60, 72],
-                [40, 50, 97],
-                [214, 45, 90],
-                [300, 34, 70]
-            ]
-        },
-
-        s2: {
-            gradient: [
-                [203, 60, 37],
-                [196, 67, 82]
-            ],
-            clouds: [
-                [33, 40, 86],
-                [214, 45, 90],
-                [40, 30, 87],
-                [40, 50, 97]
-            ]
-        }
+        gradient: [
+            [203, 60, 37],
+            [196, 67, 82]
+        ],
+        clouds: [
+            [33, 40, 86],
+            [214, 45, 90],
+            [40, 30, 87],
+            [40, 50, 97]
+        ]
     };
 
     p.setup = function () {
-        p.createCanvas(1600, 900);
+        p.createCanvas(1200, 675);
 
         p.colorMode(p.HSL);
         p.background(...COLORS.bg);
@@ -40,13 +25,11 @@ let sketch = new p5((p) => {
     };
 
     p.draw = function () {
-        let colors = COLORS.s2;
-
         // background gradient
         for (let i = 0; i < p.height; i++) {
             let c = p.lerpColor(
-                p.color(colors.gradient[0]),
-                p.color(colors.gradient[1]),
+                p.color(COLORS.gradient[0]),
+                p.color(COLORS.gradient[1]),
                 p.map(i, 0, p.height, 0, 1)
             );
             p.stroke(c);
@@ -57,16 +40,16 @@ let sketch = new p5((p) => {
         let div = 8;
         let step = p.width / 8;
 
-        for (let i = 3; i < div - 2; i++) {
+        for (let i = 3; i < div - 3; i++) {
             for (let j = 0; j < div; j++) {
 
                 blobs.push(new Watercolor({
                     p,
-                    size: p.randomGaussian(100, 25),
+                    size: p.randomGaussian(75, 19),
                     x: j * step,
                     y: i * step,
                     color: p.random([
-                        COLORS.bg, colors.clouds[0], colors.clouds[1], colors.clouds[2], colors.clouds[3]
+                        COLORS.bg, COLORS.clouds[0], COLORS.clouds[1], COLORS.clouds[2], COLORS.clouds[3]
                     ])
                 }));
             }
@@ -76,6 +59,7 @@ let sketch = new p5((p) => {
             p,
             blobs
         });
+        
     };
 
 }, 'sketch-container');
