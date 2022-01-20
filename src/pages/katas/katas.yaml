@@ -37,3 +37,7 @@ sketches:
 
     - title: simple flow field
       created_at: 2022-01-19
+
+    - title: particle flow field
+      created_at: 2022-01-20
+      load: ['particle']
