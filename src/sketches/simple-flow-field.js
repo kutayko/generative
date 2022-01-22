@@ -31,11 +31,12 @@ function draw() {
         let xoff = 0;
         for(let col=0; col < cols; col++) {
             let n = noise(xoff, yoff, zoff) * TWO_PI;
-            
+
             let v = p5.Vector.fromAngle(n);
             push();
             translate(col * res, row * res);
-            line(0, 0, v.x * res, v.y * res);
+            rotate(v.heading());
+            line(0, 0, res, 0);
             pop();
 
 
