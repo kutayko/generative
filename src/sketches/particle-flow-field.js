@@ -4,54 +4,74 @@ const COLORS = {
     fg: [210, 29, 22]
 };
 
-let res = 10;
-let inc = 0.1;
-let particleCount = 100;
+let res;
+
+let flowField = [];
+let noiseInc;
+let timeInc;
+let maxVectorAngle;
+let vectorMag;
+
+let particles;
+let particleCount;
 
 let zoff = 0;
 let rows;
 let cols;
 
-let particles;
-
 function setup() {
     let canvas = createCanvas(600, 600);
     canvas.parent('sketch-container');
+    background(255);
 
-    // colorMode(HSL);
-    stroke(0, 50);
-    noFill();
+    // settings
+    res = 10;
+    noiseInc = 0.1;
+    timeInc = 0.0005;
+    maxVectorAngle = TWO_PI * 4;
+    vectorMag = 0.5;
+    particleCount = 300;
 
     rows = height / res;
     cols = width / res;
 
-
-    particles = Array(particleCount).fill(new Particle());
+    particles = [...Array(particleCount)].map(p => new Particle(res));
 }
 
 function draw() {
-    background(255);
+    stroke(0, 50);
+    noFill();
 
     let yoff = 0;
     for(let row=0; row < rows; row++) {
+        let fieldRow = [];
         let xoff = 0;
         for(let col=0; col < cols; col++) {
-            let n = noise(xoff, yoff, zoff) * TWO_PI;
-            
+            let n = noise(xoff, yoff, zoff) * maxVectorAngle;
+
             let v = p5.Vector.fromAngle(n);
-            push();
-            translate(col * res, row * res);
-            line(0, 0, v.x * res, v.y * res);
-            pop();
+            v.setMag(vectorMag);
+            fieldRow.push(v);
+
+            // // draw vectors
+            // push();
+            // translate(col * res, row * res);
+            // rotate(v.heading());
+            // line(0, 0, res, 0);
+            // pop();
 
 
-            xoff += inc;
+            xoff += noiseInc;
         }
-        yoff += inc;
-        // zoff += 0.0001;
+
+        flowField.push(fieldRow);
+
+        yoff += noiseInc;
+        zoff += timeInc;
     }
 
     particles.map(particle => {
+        particle.follow(flowField);
         particle.update();
         particle.show();
     });
